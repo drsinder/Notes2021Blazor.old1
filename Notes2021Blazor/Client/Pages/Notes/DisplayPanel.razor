@@ -148,6 +148,7 @@ else
 
     protected void TimerTick(Object source, ElapsedEventArgs e)
     {
+        timer.Interval = 10000;
         jsRuntime.InvokeAsync<object>("setfocus", "arrow2");
     }
 
