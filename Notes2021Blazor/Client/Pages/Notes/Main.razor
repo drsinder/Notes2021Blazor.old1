@@ -313,6 +313,18 @@ else
         }
     }
 
+    protected void StartTimer()
+    {
+        timer.Enabled = true;
+        timer.Start();
+    }
+
+    protected void StopTimer()
+    {
+        timer.Enabled = false;
+        timer.Stop();
+    }
+
     protected async Task StartFileSequence()
     {
         seqBases = null;
@@ -537,14 +549,14 @@ else
         var parameters = new ModalParameters();
         parameters.Add("NoteFile", Model.noteFile);
         Modal.OnClose += HideDialogArchive;
-        timer.Stop();
+        StopTimer();
         Modal.Show<Archives>("", parameters);
     }
 
     void HideDialogArchive(ModalResult modalResult)
     {
         Modal.OnClose -= HideDialogArchive;
-        timer.Start();
+        StartTimer();
         NavigationManager.NavigateTo(NavigationManager.Uri, true);
     }
 
@@ -622,7 +634,7 @@ else
 
     private void mail()
     {
-        timer.Stop();
+        StopTimer();
         var parameters = new ModalParameters();
         Modal.OnClose += HideDialogMail;
         Modal.Show<Email>("", parameters);
@@ -631,14 +643,14 @@ else
     void HideDialogMail(ModalResult modalResult)
     {
         Modal.OnClose -= HideDialogMail;
-        timer.Start();
+        StartTimer();
         if (!modalResult.Cancelled)
             DoExport(true, true, true, modalResult.Data.ToString());
     }
 
     private void mail1()
     {
-        timer.Stop();
+        StopTimer();
         var parameters = new ModalParameters();
         Modal.OnClose += HideDialogMail1;
         Modal.Show<Email>("", parameters);
@@ -647,7 +659,7 @@ else
     void HideDialogMail1(ModalResult modalResult)
     {
         Modal.OnClose -= HideDialogMail1;
-        timer.Start();
+        StartTimer();
         if (!modalResult.Cancelled)
             DoExport1(mailOrd, true, true, true, modalResult.Data.ToString());
     }
@@ -655,7 +667,7 @@ else
 
     void Search()
     {
-        timer.Stop();
+        StopTimer();
         var parameters = new ModalParameters();
         parameters.Add("TimeZone", Model.tZone);
 
@@ -671,7 +683,7 @@ else
     void HideDialogSearch(ModalResult modalResult)
     {
         Modal.OnClose -= HideDialogSearch;
-        timer.Start();
+        StartTimer();
         if (modalResult.Cancelled)
             return;
 
@@ -873,7 +885,7 @@ else
 
     private async Task OutputMarkedAsk()
     {
-        timer.Stop();
+        StopTimer();
         var parameters = new ModalParameters();
         Modal.OnClose += HideDialogOutputAsk;
         Modal.Show<OutputDlg>("", parameters);
@@ -882,7 +894,7 @@ else
     void HideDialogOutputAsk(ModalResult modalResult)
     {
         Modal.OnClose -= HideDialogOutputAsk;
-        timer.Start();
+        StartTimer();
         if (!modalResult.Cancelled)
         {
             MarkedOutputModel mo = (MarkedOutputModel)modalResult.Data;

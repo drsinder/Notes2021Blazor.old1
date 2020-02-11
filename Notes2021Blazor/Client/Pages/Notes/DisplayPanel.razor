@@ -151,6 +151,18 @@ else
         jsRuntime.InvokeAsync<object>("setfocus", "arrow2");
     }
 
+    protected void StartTimer()
+    {
+        timer.Enabled = true;
+        timer.Start();
+    }
+
+    protected void StopTimer()
+    {
+        timer.Enabled = false;
+        timer.Stop();
+    }
+
     public async Task ClickHandler(string newMessage)
     {
         switch (newMessage)
@@ -175,7 +187,7 @@ else
             case "html": html(); break;
             case "mail": mail(); break;
             case "Search":
-                timer.Stop(); timer.Enabled = false;
+                StopTimer();
                 await OnClick.InvokeAsync(newMessage);
                 break;
             case "Mark":
@@ -270,7 +282,7 @@ else
                 mail();
                 break;
             case "S":
-                timer.Stop(); timer.Enabled = false;
+                StopTimer();
                 await OnClick.InvokeAsync("Search");
                 break;
             case "M":
@@ -532,12 +544,12 @@ else
     void HideDialog(ModalResult modalResult)
     {
         Modal.OnClose -= HideDialog;
-        timer.Start();
+        StopTimer();
     }
 
     private void Forward()
     {
-        timer.Stop();
+        StopTimer();
         var parameters = new ModalParameters();
         ForwardViewModel fv = new ForwardViewModel();
         fv.NoteID = currentHeader.Id;
@@ -568,7 +580,7 @@ else
 
     private void mail()
     {
-        timer.Stop(); timer.Enabled = false;
+        StopTimer();
         OnClick.InvokeAsync("mail:" + currentHeader.NoteOrdinal);
     }
 
