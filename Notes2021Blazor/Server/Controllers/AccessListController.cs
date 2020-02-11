@@ -68,6 +68,11 @@ namespace Notes2021Blazor.Server.Controllers
             if (item.UserID == Globals.AccessOtherId())
                 return;     // can not create "Other"
 
+            NoteFile nf = _db.NoteFile.Where(p => p.Id == item.NoteFileId).FirstOrDefault();
+
+            if (item.ArchiveId < 0 || item.ArchiveId > nf.NumberArchives)
+                return;
+
             _db.NoteAccess.Add(item);
             await _db.SaveChangesAsync();
         }
