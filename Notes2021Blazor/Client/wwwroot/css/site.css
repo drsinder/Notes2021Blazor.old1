@@ -311,6 +311,10 @@ iframe.loginclock {
     color: white;
 }
 
+.super-modal{
+    z-index: 200;
+}
+
 /*begin this user custom section */
 
 /* message box in main index*/

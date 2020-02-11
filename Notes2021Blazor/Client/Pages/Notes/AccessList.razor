@@ -1,7 +1,5 @@
 ﻿@using Notes2021Blazor.Shared
-@using Blazored.LocalStorage
 @using Microsoft.AspNetCore.Components.Authorization
-@using System.ComponentModel.DataAnnotations
 @inject HttpClient Http
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject NavigationManager NavigationManager
@@ -42,12 +40,13 @@ else
                     <th>
                         Edit Access
                     </th>
+                    <th></th>
                 </tr>
                 @{
                     foreach (NoteAccess item in myList)
                     {
                         string userName = item.UserID;
-                        if (userName != "Other")
+                        if (userName != Globals.AccessOtherId())
                         {
                             UserData temp = userList.Find(p => p.UserId == userName);
                             if (temp != null)
@@ -90,6 +89,7 @@ else
                             <td>
                                 <AccessCheckBox Model="@edaccess" />
                             </td>
+                            <td><AccessDeleteButton noteAccess="@item" OnClick="ClickHandler" /></td>
                         </tr>
                     }
                 }
@@ -99,7 +99,8 @@ else
         {
             <p>Not permitted!</p>
         }
-        <button type="button" @onclick="Cancel" class="btn btn-info btn-sm">Close</button>
+        <button type="button" @onclick="Cancel" class="btn btn-info btn-sm">Close</button> <button type="button" @onclick="CreateNew" class="btn btn-primary btn-sm">Create</button>
+
     </div>
 }
 
@@ -107,8 +108,6 @@ else
 @code{
 
     [CascadingParameter] ModalParameters Parameters { get; set; }
-
-    [Parameter]
 
     public int fileId { get; set; }
     private List<NoteAccess> myList { get; set; }
@@ -130,6 +129,33 @@ else
     {
         ModalService.Close(ModalResult.Cancel());
     }
+
+    protected void CreateNew()
+    {
+        ModalService.Close(ModalResult.Ok<List<UserData>>(userList));
+    }
+
+
+    protected async Task ClickHandler(string newMessage)
+    {
+        myList = await Http.GetJsonAsync<List<NoteAccess>>("api/AccessList/" + fileId);
+        StateHasChanged();
+    }
+
+    //protected void CreateNew22()
+    //{
+    //    var parameters = new ModalParameters();
+    //    parameters.Add("NoteFileId", fileId);
+    //    parameters.Add("UserList", userList);
+    //    ModalService.OnClose += HideDialog;
+    //    ModalService.Show<Archives>("", parameters);
+    //}
+
+    //public void HideDialog(ModalResult result)
+    //{
+    //    ModalService.OnClose += HideDialog;
+    //    StateHasChanged();
+    //}
 
 }
 

@@ -92,6 +92,8 @@ else
 
     private Timer timer { get; set; }
     private Timer timer2 { get; set; }
+    private Timer timerAccess1Trigger { get; set; }
+    private Timer timerAccess2Trigger { get; set; }
 
     private List<Sequencer> trackers { get; set; }
     private int seqIndex { get; set; }
@@ -586,8 +588,53 @@ else
     {
         var parameters = new ModalParameters();
         parameters.Add("FileId", Id);
-        Modal.OnClose += HideDialog;
+        Modal.OnClose += HideDialogAccess;
         Modal.Show<AccessList>("", parameters);
+    }
+
+    private List<UserData> udata;
+
+    protected void HideDialogAccess(ModalResult modalResult)
+    {
+        Modal.OnClose -= HideDialogAccess;
+
+        if (modalResult.Cancelled)
+            return;
+
+        udata = (List<UserData>)modalResult.Data;
+
+        timerAccess1Trigger = new Timer(250);
+        timerAccess1Trigger.Enabled = true;
+        timerAccess1Trigger.Elapsed += TriggerCreateAccess;
+
+    }
+
+    protected void TriggerCreateAccess(Object source, ElapsedEventArgs e)
+    {
+        timerAccess1Trigger.Stop();
+        timerAccess1Trigger.Enabled = false;
+
+        var parameters = new ModalParameters();
+        parameters.Add("NoteFile", Model.noteFile);
+        parameters.Add("UserList", udata);
+        Modal.OnClose += HideDialogNewAccess;
+        Modal.Show<AddAccessDlg>("", parameters);
+    }
+
+    void HideDialogNewAccess(ModalResult modalResult)
+    {
+        Modal.OnClose -= HideDialogNewAccess;
+
+        timerAccess2Trigger = new Timer(250);
+        timerAccess2Trigger.Enabled = true;
+        timerAccess2Trigger.Elapsed += EditAccess0;
+    }
+
+    void EditAccess0(Object source, ElapsedEventArgs e)
+    {
+        timerAccess2Trigger.Stop();
+        timerAccess2Trigger.Enabled = false;
+        EditAccess();
     }
 
     private void DoExport(bool isHtml, bool isCollapsible, bool isEmail = false, string emailaddr = null)
