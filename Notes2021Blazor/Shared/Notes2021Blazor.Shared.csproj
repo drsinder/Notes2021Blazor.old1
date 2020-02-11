@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20200205173646_Initial.cs" />
+    <Compile Remove="Migrations\20200205173646_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200209062212_LinkSecret.cs" />
+    <Compile Remove="Migrations\20200209062212_LinkSecret.Designer.cs" />
+    <Compile Remove="Migrations\20200209064145_LinkSecret2.cs" />
+    <Compile Remove="Migrations\20200209064145_LinkSecret2.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>
