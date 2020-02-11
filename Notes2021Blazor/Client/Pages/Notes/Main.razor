@@ -311,7 +311,7 @@ else
 
     protected void TimerTick(Object source, ElapsedEventArgs e)
     {
-        timer.Interval = 10000;
+        timer.Interval = 15000;
         jsRuntime.InvokeAsync<object>("setfocus", "arrow1");
     }
 
@@ -327,6 +327,7 @@ else
 
     protected void StartTimer()
     {
+        timer.Interval = 1000;
         timer.Enabled = true;
         timer.Start();
     }

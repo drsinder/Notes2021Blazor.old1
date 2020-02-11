@@ -47,7 +47,7 @@ else
             }
         </h4>
     </div>
-    <div class="notebody">
+    <div class="notebody" @onmousedown="StopTimer">
         @((MarkupString)currentContent.NoteBody)
     </div>
 
@@ -148,12 +148,13 @@ else
 
     protected void TimerTick(Object source, ElapsedEventArgs e)
     {
-        timer.Interval = 10000;
+        timer.Interval = 5000;
         jsRuntime.InvokeAsync<object>("setfocus", "arrow2");
     }
 
     protected void StartTimer()
     {
+        timer.Interval = 1000;
         timer.Enabled = true;
         timer.Start();
     }
@@ -545,7 +546,7 @@ else
     void HideDialog(ModalResult modalResult)
     {
         Modal.OnClose -= HideDialog;
-        StopTimer();
+        StartTimer();
     }
 
     private void Forward()
