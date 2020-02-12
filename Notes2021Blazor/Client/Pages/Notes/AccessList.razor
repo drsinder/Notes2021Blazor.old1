@@ -1,11 +1,13 @@
 ﻿@using Notes2021Blazor.Shared
+@using Blazored.LocalStorage
 @using Microsoft.AspNetCore.Components.Authorization
 @inject HttpClient Http
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject NavigationManager NavigationManager
 @inject IModalService ModalService
+@inject ILocalStorageService _localStorage
 
-@if (myList == null)
+@if (myAccess == null)
 {
     <p class="center"><em>Loading...</em></p>
 }
@@ -17,7 +19,6 @@ else
         {
             <table class="table">
                 <tr>
-                    <th>Archive #</th>
                     <th>User Name</th>
                     <th>
                         Read
@@ -62,9 +63,6 @@ else
                         AccessItem view = new AccessItem { isChecked = item.ViewAccess, which = AccessX.ViewAccess, Item = item, canEdit = myAccess.EditAccess };
                         AccessItem edaccess = new AccessItem { isChecked = item.EditAccess, which = AccessX.EditAccess, Item = item, canEdit = myAccess.EditAccess };
                         <tr>
-                            <td>
-                                @item.ArchiveId
-                            </td>
                             <td>
                                 @userName
                             </td>
@@ -111,14 +109,27 @@ else
 
     public int fileId { get; set; }
     private List<NoteAccess> myList { get; set; }
+    private List<NoteAccess> temp { get; set; }
     private List<UserData> userList { get; set; }
     private NoteAccess myAccess { get; set; }
+    private int arcId { get; set; }
 
     protected async override Task OnParametersSetAsync()
     {
         fileId = Parameters.Get<int>("FileId");
 
-        myList = await Http.GetJsonAsync<List<NoteAccess>>("api/AccessList/" + fileId);
+        arcId = await _localStorage.GetItemAsync<int>("ArchiveId");
+
+        temp = await Http.GetJsonAsync<List<NoteAccess>>("api/AccessList/" + fileId);
+        myList = new List<NoteAccess>();
+
+        foreach (NoteAccess item in temp)
+        {
+            if (item.ArchiveId == arcId)
+            {
+                myList.Add(item);
+            }
+        }
 
         userList = await Http.GetJsonAsync<List<UserData>>("api/Users/");
 
@@ -135,27 +146,22 @@ else
         ModalService.Close(ModalResult.Ok<List<UserData>>(userList));
     }
 
-
     protected async Task ClickHandler(string newMessage)
     {
-        myList = await Http.GetJsonAsync<List<NoteAccess>>("api/AccessList/" + fileId);
+        arcId = await _localStorage.GetItemAsync<int>("ArchiveId");
+
+        temp = await Http.GetJsonAsync<List<NoteAccess>>("api/AccessList/" + fileId);
+        myList = new List<NoteAccess>();
+
+        foreach (NoteAccess item in temp)
+        {
+            if (item.ArchiveId == arcId)
+            {
+                myList.Add(item);
+            }
+        }
         StateHasChanged();
     }
-
-    //protected void CreateNew22()
-    //{
-    //    var parameters = new ModalParameters();
-    //    parameters.Add("NoteFileId", fileId);
-    //    parameters.Add("UserList", userList);
-    //    ModalService.OnClose += HideDialog;
-    //    ModalService.Show<Archives>("", parameters);
-    //}
-
-    //public void HideDialog(ModalResult result)
-    //{
-    //    ModalService.OnClose += HideDialog;
-    //    StateHasChanged();
-    //}
 
 }
 

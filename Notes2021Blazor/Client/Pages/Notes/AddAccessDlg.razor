@@ -1,7 +1,9 @@
 ﻿@using Notes2021Blazor.Shared
 @using System.Timers
+@using Blazored.LocalStorage
 @inject HttpClient Http
 @inject IModalService ModalService
+@inject ILocalStorageService _localStorage
 
 @if (NoteFile == null)
 {
@@ -9,92 +11,90 @@
 }
 else
 {
-<div class="roundedgrayindexinput modal-body">
-    <h3>Add Access Element for User</h3>
+    <div class="roundedgrayindexinput modal-body">
+        <h3>Add Access Element for User</h3>
 
-    <h5>Select the User</h5>
+        <h5>Select the User</h5>
 
-    <select @bind="selectedUserId">
-        <option value="none">Choose from below</option>
-        @foreach (UserData item in userData)
-        {
-            <option value="@item.UserId">@item.DisplayName</option>
-        }
-    </select>
-    <br /><br />
-     Enter Archive number (usually 0): <input type="text" @bind-value="@ArcString" />
-    <br /><br />
-    <button type="button" @onclick="Create" class="btn btn-info btn-sm">Create</button>
+        <select @bind="selectedUserId">
+            <option value="none">Choose from below</option>
+            @foreach (UserData item in userData)
+            {
+                <option value="@item.UserId">@item.DisplayName</option>
+            }
+        </select>
+        <br /><br />
+        <button type="button" @onclick="Create" class="btn btn-info btn-sm">Create</button>
 
-    <button type="button" @onclick="Cancel" class="btn btn-info btn-sm">Cancel</button>
-</div>
+        <button type="button" @onclick="Cancel" class="btn btn-info btn-sm">Cancel</button>
+    </div>
 }
 
-    @code {
+@code {
 
-        [CascadingParameter] ModalParameters Parameters { get; set; }
+    [CascadingParameter] ModalParameters Parameters { get; set; }
 
-        protected int fileId { get; set; }
+    protected int fileId { get; set; }
 
-        protected List<UserData> userData { get; set; }
+    protected List<UserData> userData { get; set; }
 
-        protected NoteFile NoteFile { get; set; }
+    protected NoteFile NoteFile { get; set; }
 
-        protected string selectedUserId { get; set; }
+    protected string selectedUserId { get; set; }
 
-        protected Timer delay { get; set; }
+    protected Timer delay { get; set; }
 
-        protected string ArcString {get; set;}
+    protected string ArcString { get; set; }
 
-        protected override void OnParametersSet()
+    protected override void OnParametersSet()
+    {
+        selectedUserId = "none";
+        //ArcString = "0";
+
+        userData = Parameters.Get<List<UserData>>("UserList");
+
+        NoteFile = Parameters.Get<NoteFile>("NoteFile");
+
+        if (NoteFile == null)
+            Cancel();
+    }
+
+    private void Cancel()
+    {
+        ModalService.Close(ModalResult.Cancel());
+    }
+
+    private async Task Create()
+    {
+        if (selectedUserId != "none")
         {
-            selectedUserId = "none";
-            ArcString = "0";
+            int aId = await _localStorage.GetItemAsync<int>("ArchiveId");
 
-            userData = Parameters.Get<List<UserData>>("UserList");
+            NoteAccess item = new NoteAccess();
 
-            NoteFile = Parameters.Get<NoteFile>("NoteFile");
+            item.UserID = selectedUserId;
+            item.NoteFileId = NoteFile.Id;
+            item.ArchiveId = aId;
+            // all access options left false
 
-            if (NoteFile == null)
-                Cancel();
+            await Http.PostJsonAsync("api/AccessList", item);
+
+            delay = new Timer(250);
+            delay.Enabled = true;
+            delay.Elapsed += Done;
+
+            return;
         }
 
-        private void Cancel()
-        {
-            ModalService.Close(ModalResult.Cancel());
-        }
+        ModalService.Close(ModalResult.Cancel());
+    }
 
-        private async Task Create()
-        {
-            if (selectedUserId != "none")
-            {
-                int aId = int.Parse(ArcString);
-
-                NoteAccess item = new NoteAccess();
-
-                item.UserID = selectedUserId;
-                item.NoteFileId = NoteFile.Id;
-                item.ArchiveId = aId;
-                // all access options left false
-
-                await Http.PostJsonAsync("api/AccessList", item);
-
-                delay = new Timer(250);
-                delay.Enabled = true;
-                delay.Elapsed += Done;
-
-                return;
-            }
-
-            ModalService.Close(ModalResult.Cancel());
-        }
-
-        private void Done(Object source, ElapsedEventArgs e)
-        {
-            delay.Enabled = false;
-            delay.Stop();
-            ModalService.Close(ModalResult.Cancel());
-        }
+    private void Done(Object source, ElapsedEventArgs e)
+    {
+        delay.Enabled = false;
+        delay.Stop();
+        ModalService.Close(ModalResult.Cancel());
+    }
 
 
 }
