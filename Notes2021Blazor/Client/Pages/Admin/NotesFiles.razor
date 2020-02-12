@@ -46,8 +46,8 @@ else
 
             @message
             <p>
-                <button @onclick="@(() => CreateNoteFile(0))">Create Note File</button>
-                @*@if (todo.Contains("announce"))
+                <button @onclick="@(() => CreateNoteFile(0))" class="btn-file">Create Note File</button>
+                @if (todo.Contains("announce"))
                     {
                         <button @onclick="CreateAnnounce" class="btn-file">Create Announce</button>
                     }
@@ -62,7 +62,7 @@ else
                     @if (todo.Contains("pad"))
                     {
                         <button @onclick="CreatePad" class="btn-file">Create Pad</button>
-                    }*@
+                    }
             </p>
             <table class="table">
                 <thead>
@@ -228,24 +228,32 @@ else
     }
 
 
-    private void CreateAnnounce()
+    private async Task CreateAnnounce()
     {
-        message = "Create Announce clicked";
+        await Http.PostJsonAsync("api/NoteFileAdminStd", new Stringy { value = "announce" });
+        this.StateHasChanged();
+        NavigationManager.NavigateTo("admin/notefiles2", true);
     }
 
-    private void CreatePbnotes()
+    private async Task CreatePbnotes()
     {
-        message = "Create Pbnotes clicked";
+        await Http.PostJsonAsync("api/NoteFileAdminStd", new Stringy { value = "pbnotes" });
+        this.StateHasChanged();
+        NavigationManager.NavigateTo("admin/notefiles2", true);
     }
 
-    private void CreateNotesHelp()
+    private async Task CreateNotesHelp()
     {
-        message = "Create Noteshelp clicked";
+        await Http.PostJsonAsync("api/NoteFileAdminStd", new Stringy { value = "noteshelp" });
+        this.StateHasChanged();
+        NavigationManager.NavigateTo("admin/notefiles2", true);
     }
 
-    private void CreatePad()
+    private async Task CreatePad()
     {
-        message = "Create Pad clicked";
+        await Http.PostJsonAsync("api/NoteFileAdminStd", new Stringy { value = "pad" });
+        this.StateHasChanged();
+        NavigationManager.NavigateTo("admin/notefiles2", true);
     }
 
 }
