@@ -8,12 +8,25 @@
 
   "DefaultTZ": "54",
 
+  "PathBase": "/",
+
   "MigrateDb": "yes",
+
+  "ApiLoginSecret": "8mzngsgthkyyil65fgf3gfp",
 
   "ProductionUrl": "https://localhost:yourdevportnum/",
   "SendGridApiKey": "*******************************",
   "SendGridEmail": "your@email.address",
   "SendGridName": "Your Name on behalf of Notes 2021",
   "PrimeAdminEmail": "your@email.address",
-  "PrimeAdminName": "Your Name"
+  "PrimeAdminName": "Your Name",
+
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "AllowedHosts": "*"
 }
