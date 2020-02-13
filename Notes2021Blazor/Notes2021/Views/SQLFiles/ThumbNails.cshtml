@@ -32,8 +32,8 @@
     @foreach (var item in Model)
     {
         string url = "/File/GetById/" + item.FileId;
-        string show = url.Replace("~", Globals.ProductionUrl);
-        string details = Globals.ProductionUrl + "/SQLFiles/Details/" + item.FileId;
+        string show = url.Replace("~", Notes2021.Globals.ProductionUrl);
+        string details = Notes2021.Globals.ProductionUrl + "/SQLFiles/Details/" + item.FileId;
        <tr>
             <td>
                 <div class="row">

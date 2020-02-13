@@ -45,7 +45,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 @foreach (var item in Model.AFiles)
                                 {
-                                    string link = @Globals.ProductionUrl + "NoteDisplay/Enter/" + @item.Value;
+                                    string link = @Notes2021.Globals.ProductionUrl + "NoteDisplay/Enter/" + @item.Value;
                                     <li><a href=@link><strong>@item.Text</strong></a></li>
                                 }
                             </ul>
@@ -58,7 +58,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 @foreach (var item in Model.ATitles)
                                 {
-                                    string link = @Globals.ProductionUrl + "NoteDisplay/Enter/" + @item.Value;
+                                    string link = @Notes2021.Globals.ProductionUrl + "NoteDisplay/Enter/" + @item.Value;
                                     <li><a href=@link><strong>@item.Text</strong></a></li>
                                 }
                             </ul>
@@ -187,7 +187,7 @@
                         <li><a asp-controller="DataSpy">Raw Data Viewer <strong>(Audited)</strong></a></li>
                         <li><a href="~/Hangfire" target="_blank">Hangfire Dashboard</a></li>
                         <li><a href="https://portal.azure.com/#" target="_blank">Azure Portal</a></li>
-                        <li><a href="https://dashboard.pusher.com/apps/@Globals.PusherAppId/" target="_blank">Pusher Dashboard</a></li>
+                        <li><a href="https://dashboard.pusher.com/apps/@Notes2021.Globals.PusherAppId/" target="_blank">Pusher Dashboard</a></li>
                     </ul>
                 </div>
             </div>

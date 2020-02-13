@@ -1,4 +1,5 @@
 ﻿@page "/logout"
+@using Notes2021Blazor.Shared
 @inject IAuthService AuthService
 @inject NavigationManager NavigationManager
 
@@ -7,7 +8,7 @@
     protected override async Task OnInitializedAsync()
     {
         await AuthService.Logout();
-        NavigationManager.NavigateTo(Notes2021Blazor.Client.Globals.RootUri);
+        NavigationManager.NavigateTo(Globals.RootUri);
     }
 
 }
