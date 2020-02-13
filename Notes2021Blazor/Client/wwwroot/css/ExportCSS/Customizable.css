@@ -47,8 +47,17 @@
     border-radius: 6px;
 }
 
+/* dialogs */
+.dialogs {
+    margin: 16px;
+    padding: 16px;
+    background-color: wheat;
+    color: black;
+    border-radius: 3px;
+}
+
 /*main index input area */
-.roundedgrayindexinput {
+.roundedgrayindex {
     margin: 16px;
     padding: 16px;
     padding-left: 30px;
