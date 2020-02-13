@@ -34,7 +34,7 @@ namespace Notes2021Blazor.Server.Controllers
 
             var myRoles = await _userManager.GetRolesAsync(user);
 
-            List<IdentityRole> allRoles = _db.Roles.ToList();
+            List<IdentityRole> allRoles = _db.Roles.OrderBy(p => p.Name).ToList();
 
             List<CheckedUser> myList = new List<CheckedUser>();
 
