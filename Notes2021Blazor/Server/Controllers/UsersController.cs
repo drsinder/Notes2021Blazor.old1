@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Notes2021Blazor.Shared;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Notes2021Blazor.Server.Controllers
@@ -22,7 +23,7 @@ namespace Notes2021Blazor.Server.Controllers
         [HttpGet]
         public async Task<List<UserData>> Get()
         {
-            List<UserData> list = await _db.UserData.ToListAsync();
+            List<UserData> list = await _db.UserData.OrderBy(p => p.DisplayName).ToListAsync();
 
             return list;
         }
