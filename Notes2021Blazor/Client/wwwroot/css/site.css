@@ -374,6 +374,15 @@ div.arrow2 {
     z-index: 3;
 }
 
+div.copyright {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    text-align: right;
+    z-index: 3;
+}
+
 div.lower-menu {
     position: fixed;
     bottom: 0;
