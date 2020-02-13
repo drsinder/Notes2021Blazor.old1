@@ -383,6 +383,11 @@ div.arrow2 {
     z-index: 3;
 }
 
+div.topmenu {
+    position: fixed;
+    top: 47px;
+}
+
 div.copyright {
     position: fixed;
     bottom: 0;
