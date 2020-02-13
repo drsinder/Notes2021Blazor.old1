@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notes2021Blazor.Shared", "N
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notes2021", "Notes2021Blazor\Notes2021\Notes2021.csproj", "{09983FE9-F7CB-4D23-B13C-06521D80C895}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotesUtil", "Notes2021Blazor\NotesUtil\NotesUtil.csproj", "{3753B8F5-34D0-4242-9E73-9030B95D377C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{09983FE9-F7CB-4D23-B13C-06521D80C895}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09983FE9-F7CB-4D23-B13C-06521D80C895}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09983FE9-F7CB-4D23-B13C-06521D80C895}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3753B8F5-34D0-4242-9E73-9030B95D377C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3753B8F5-34D0-4242-9E73-9030B95D377C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3753B8F5-34D0-4242-9E73-9030B95D377C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3753B8F5-34D0-4242-9E73-9030B95D377C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
