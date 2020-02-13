@@ -71,7 +71,7 @@ namespace Notes2021
 
             Globals.PathBase = Configuration["PathBase"];
 
-            //Globals.InstKey = Configuration["InstKey"];
+            Globals.MigrateDb = Configuration["MigrateDb"];
 
             Globals.TimeZoneDefaultID = int.Parse(Configuration["DefaultTZ"]);
             Globals.SendGridApiKey = Configuration["SendGridApiKey"];
@@ -113,7 +113,8 @@ namespace Notes2021
         {
             app.UsePathBase(Configuration["PathBase"]);
 
-            UpdateDatabase(app);
+            if (Globals.MigrateDb == "yes" || Globals.MigrateDb == "true")
+                UpdateDatabase(app);
 
             if (true || env.IsDevelopment())
             {
