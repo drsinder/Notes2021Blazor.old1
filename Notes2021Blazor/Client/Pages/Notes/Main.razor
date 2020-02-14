@@ -65,9 +65,16 @@ else
             }
             else // note display mode
             {
+                if (Model.myAccess.ReadAccess)
+                {
                 <DisplayPanel Model="Model" currentHeader="currentHeader" Id="Id" SeqBases="seqBases"
                               trackers="trackers" seqIndx="seqIndex" OnClick="ClickHandler"
                               isSearch="isSearch" SearchResults="results" />
+                }
+                else
+                {
+                    <p>You may not read notes in this file.</p>
+                }
             }
         </Authorized>
         <NotAuthorized>
@@ -484,9 +491,6 @@ else
     {
         typedInput = typedInput.Trim().Replace("'\n", "").Replace("'\r", "").Trim();
 
-        //if (typedInput == "O" && Model.isMarked && Model.myAccess.ReadAccess)
-        //    NavigationManager.NavigateTo("notes/exportmarked/" + @Model.noteFile.Id);
-
         int fileId = Model.noteFile.Id;
         int noteOrd = 1;
         if (string.IsNullOrEmpty(typedInput) || string.IsNullOrWhiteSpace(typedInput))
@@ -508,6 +512,8 @@ else
             currentHeader = Model.AllNotes.Where(p => p.NoteOrdinal == noteOrd && p.ResponseOrdinal == respOrd).SingleOrDefault();
             if (currentHeader == null)
                 return;
+            if (!Model.myAccess.ReadAccess)
+                return;
             mode = currentHeader.Id;
         }
         else
@@ -520,6 +526,8 @@ else
             {
                 return;
             }
+            if (!Model.myAccess.ReadAccess)
+                return;
 
             currentHeader = Model.Notes[noteOrd - 1];
             mode = currentHeader.Id;
@@ -536,14 +544,6 @@ else
         //NavigationManager.NavigateTo("notes/main/" + Id);
         this.StateHasChanged();
     }
-
-    //private void NoteClicked(MouseEventArgs x)
-    //{
-    //    string z = x.Button.ToString();
-    //    message = "Clicked " + z;
-    //    this.StateHasChanged();
-    //}
-
 
     private void SetFocus()
     {
