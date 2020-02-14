@@ -961,8 +961,10 @@ namespace Notes2021.Controllers
             string sfileId = Request.Form["fileID"];
             int fileId = int.Parse(sfileId);
             int noteOrd = 1;
+            string uid = _userManager.GetUserId(User);
+            NoteAccess na = await AccessManager.GetAccess(_db, uid, fileId, (int)HttpContext.Session.GetInt32("ArchiveID"));
             NoteHeader nc;
-            if (string.IsNullOrEmpty(typedInput) || string.IsNullOrWhiteSpace(typedInput))
+            if (string.IsNullOrEmpty(typedInput) || string.IsNullOrWhiteSpace(typedInput) || !na.ReadAccess)
                 return RedirectToAction("Listing", new { id = fileId });
 
             if (typedInput.Contains("."))

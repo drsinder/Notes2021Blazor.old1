@@ -73,7 +73,7 @@ else
                 }
                 else
                 {
-                    <p>You may not read notes in this file.</p>
+                    <h3>You may not read notes in this file.</h3>
                 }
             }
         </Authorized>
@@ -340,11 +340,9 @@ else
 
     protected void StartTimer()
     {
-        //timer.Interval = 1000;
         timer = new Timer(1000);
         timer.Elapsed += TimerTick;
         timer.Enabled = true;
-        //timer.Start();
     }
 
     protected void StopTimer()
