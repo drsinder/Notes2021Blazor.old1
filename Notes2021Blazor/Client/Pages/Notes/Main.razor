@@ -356,9 +356,11 @@ else
         seqBases = null;
         while ((++seqIndex < trackers.Count) && (seqBases == null || seqBases.Count == 0))
         {
-            await LoadSeqFile();
-            if (Model.noteFile.LastEdited < trackers[seqIndex].LastTime)
+            NoteFile nf = await PreLoadSeqFile();
+            if (nf.LastEdited < trackers[seqIndex].LastTime)
                 continue;
+
+            await LoadSeqFile();
             seqBases = SearchForTrackedBaseNotes(trackers[seqIndex]);
             if (seqBases != null && seqBases.Count > 0)
                 break;
@@ -376,6 +378,16 @@ else
         currentHeader = seqBases[0];
         mode = currentHeader.Id;
         StateHasChanged();
+    }
+
+    protected async Task<NoteFile> PreLoadSeqFile()
+    {
+        Sequencer tr = trackers[seqIndex];
+        Id = tr.NoteFileId;
+
+        mode = 0;  // index mode
+
+        return await Http.GetJsonAsync<NoteFile>("api/NoteIndexFile/" + Id);
     }
 
     protected async Task LoadSeqFile()
