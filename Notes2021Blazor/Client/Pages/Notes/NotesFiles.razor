@@ -78,7 +78,7 @@ else
                             <td>@if(marked)
                                 @marked</td>
                             <td>
-                                <button @onclick="@(() => ViewNoteFile(file.Id))">View</button>
+                                <button class="btn btn-sm btn-info" @onclick="@(() => ViewNoteFile(file.Id))">View</button>
                             </td>
                         </tr>
                     }

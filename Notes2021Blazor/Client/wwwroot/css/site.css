@@ -389,15 +389,7 @@ div.arrow2 {
 div.topmenu {
     position: fixed;
     top: 47px;
-}
-
-div.copyright {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    width: 100%;
-    text-align: right;
-    z-index: 3;
+    z-index: 2;
 }
 
 div.lower-menu {
@@ -408,6 +400,14 @@ div.lower-menu {
     z-index: 2;
 }
 
+div.copyright {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    text-align: right;
+    z-index: 3;
+}
 
 /*notes index and display menu bar*/
 .notesmenu {
