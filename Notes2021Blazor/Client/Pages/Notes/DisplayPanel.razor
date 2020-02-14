@@ -154,9 +154,9 @@ else
 
     protected void StartTimer()
     {
-        timer.Interval = 1000;
+        timer = new Timer(1000);
+        timer.Elapsed += TimerTick;
         timer.Enabled = true;
-        timer.Start();
     }
 
     protected void StopTimer()

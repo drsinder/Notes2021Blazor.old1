@@ -333,9 +333,11 @@ else
 
     protected void StartTimer()
     {
-        timer.Interval = 1000;
+        //timer.Interval = 1000;
+        timer = new Timer(1000);
+        timer.Elapsed += TimerTick;
         timer.Enabled = true;
-        timer.Start();
+        //timer.Start();
     }
 
     protected void StopTimer()
@@ -552,12 +554,14 @@ else
     private void ShowHelp()
     {
         var parameters = new ModalParameters();
+        StopTimer();
         Modal.OnClose += HideDialog;
         Modal.Show<HelpDialog>("", parameters);
     }
 
     void HideDialog(ModalResult modalResult)
     {
+        StartTimer();
         Modal.OnClose -= HideDialog;
     }
 
@@ -593,6 +597,7 @@ else
         var parameters = new ModalParameters();
         parameters.Add("FileId", Id);
         Modal.OnClose += HideDialogAccess;
+        StopTimer();
         Modal.Show<AccessList>("", parameters);
     }
 
@@ -603,7 +608,10 @@ else
         Modal.OnClose -= HideDialogAccess;
 
         if (modalResult.Cancelled)
+        {
+            StartTimer();
             return;
+        }
 
         udata = (List<UserData>)modalResult.Data;
 

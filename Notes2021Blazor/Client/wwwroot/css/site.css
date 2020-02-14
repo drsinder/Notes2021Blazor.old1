@@ -346,7 +346,7 @@ iframe.loginclock {
     background-color: wheat;
     border-style:groove;
     border-width:6px;
-    border-color:white;
+    border-color:darkgray;
     color: black;
     border-radius: 8px;
 }
