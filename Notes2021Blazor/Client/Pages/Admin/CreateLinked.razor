@@ -76,19 +76,36 @@ else
 
     protected async Task Submit()
     {
-        Stringy test = new Stringy { value = appUri };
-        bool result = await Http.PostJsonAsync<bool>("api/LinkTest", test);
-
         if (myFile == 0)
         {
             ShowMessage("Select a file!");
             return;
         }
+
+        if (string.IsNullOrEmpty(remoteFile) )
+        {
+            ShowMessage("Enter a remote file!");
+            return;
+        }
+
+        Stringy test = new Stringy { value = appUri };
+        bool result = await Http.PostJsonAsync<bool>("api/LinkTest", test);
+
         if (!result)
         {
             ShowMessage("Remote system not responding...");
             return;
         }
+
+        Stringy test2 = new Stringy { value = appUri + "/" + remoteFile };
+        bool result2 = await Http.PutJsonAsync<bool>("api/LinkTest", test2);
+
+        if (!result2 )
+        {
+            ShowMessage("Remote file does not exist.");
+            return;
+        }
+
 
         LinkedFile linker = new LinkedFile();
         linker.HomeFileId = myFile;

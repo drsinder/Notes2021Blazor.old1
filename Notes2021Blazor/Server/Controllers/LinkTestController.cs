@@ -22,5 +22,14 @@ namespace Notes2021Blazor.Server.Controllers
             LinkProcessor lp = new LinkProcessor(null);
             return await lp.Test(uri.value);
         }
+
+        [HttpPut]
+        public async Task<bool> Put(Stringy uri)
+        {
+            LinkProcessor lp = new LinkProcessor(null);
+            bool test = await lp.Test2(uri.value);
+            return test;
+        }
+
     }
 }

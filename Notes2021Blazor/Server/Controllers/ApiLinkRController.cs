@@ -13,6 +13,7 @@ namespace Notes2021Blazor.Server.Controllers
     /// </summary>
 
     [Route("api/[controller]")]
+    [Route("api/[controller]/{file}")]
     [ApiController]
     public class ApiLinkRController : ControllerBase
     {
@@ -66,6 +67,17 @@ namespace Notes2021Blazor.Server.Controllers
             }
 
             return "Ok";
+        }
+
+        [HttpGet]
+        public async Task<string> Get(string file)
+        {
+            NoteFile nf = _context.NoteFile.SingleOrDefault(p => p.NoteFileName == file);
+
+            if (nf != null)
+                return "Ok";
+
+            return "File '" + file + "' does not exist on remote system.";
         }
 
     }

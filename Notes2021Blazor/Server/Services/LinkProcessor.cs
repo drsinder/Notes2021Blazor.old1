@@ -299,5 +299,35 @@ namespace Notes2021Blazor.Server.Services
 
             return result3 == "Hello Notes2021";
         }
+
+        public async Task<bool> Test2(string Uri)
+        {
+            string file;
+            string uri;
+
+            int index = Uri.LastIndexOf("/");
+
+            uri = Uri.Substring(0, index - 1);
+            file = Uri.Substring(index, Uri.Length - index);
+
+            HttpClient MyClient = new HttpClient
+            {
+                BaseAddress = new Uri(uri)
+            };
+
+            HttpResponseMessage resp3;
+
+            try
+            {
+                resp3 = await MyClient.GetAsync("api/ApiLinkR" + file);
+            }
+            catch
+            {
+                return false;
+            }
+            string result3 = await resp3.Content.ReadAsStringAsync();
+
+            return result3 == "Ok";
+        }
     }
 }
