@@ -132,7 +132,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        HomePageModel model = await Http.GetJsonAsync<HomePageModel>("api/HomePageData");
+        HomePageModel model = await Http.GetJsonAsync<HomePageModel>("api/AdminPageData");
         timeZone = model.TimeZone;
 
         todo = new List<string> { "announce", "pbnotes", "noteshelp", "pad" };

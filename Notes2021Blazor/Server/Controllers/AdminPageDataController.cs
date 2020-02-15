@@ -10,12 +10,12 @@ namespace Notes2021Blazor.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HomePageDataController : ControllerBase
+    public class AdminPageDataController : ControllerBase
     {
         private readonly NotesDbContext _db;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public HomePageDataController(NotesDbContext db,
+        public AdminPageDataController(NotesDbContext db,
             UserManager<IdentityUser> userManager
             )
         {
@@ -58,19 +58,19 @@ namespace Notes2021Blazor.Server.Controllers
                         model.NoteAccesses.Add(na);
                     }
 
-                    if (model.NoteAccesses.Count > 0)
-                    {
-                        NoteFile[] theList = new NoteFile[model.NoteFiles.Count];
-                        model.NoteFiles.CopyTo(theList);
-                        foreach (NoteFile nf2 in theList)
-                        {
-                            NoteAccess na = model.NoteAccesses.SingleOrDefault(p => p.NoteFileId == nf2.Id);
-                            if (!na.ReadAccess && !na.Write && !na.EditAccess)
-                            {
-                                model.NoteFiles.Remove(nf2);
-                            }
-                        }
-                    }
+                    //if (model.NoteAccesses.Count > 0)
+                    //{
+                    //    NoteFile[] theList = new NoteFile[model.NoteFiles.Count];
+                    //    model.NoteFiles.CopyTo(theList);
+                    //    foreach (NoteFile nf2 in theList)
+                    //    {
+                    //        NoteAccess na = model.NoteAccesses.SingleOrDefault(p => p.NoteFileId == nf2.Id);
+                    //        if (!na.ReadAccess && !na.Write && !na.EditAccess)
+                    //        {
+                    //            model.NoteFiles.Remove(nf2);
+                    //        }
+                    //    }
+                    //}
                 }
                 else
                 {

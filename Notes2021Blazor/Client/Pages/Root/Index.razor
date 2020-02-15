@@ -147,7 +147,6 @@
             + " " + model1.TimeZone.Abbreviation + " - "
             + model1.TimeZone.Local(DateTime.Now.ToUniversalTime()).ToLongDateString();
 
-
         myTimer = new Timer(1000);
         myTimer.Elapsed += OnTimedEvent;
         myTimer.AutoReset = true;
