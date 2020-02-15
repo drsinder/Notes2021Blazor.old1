@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notes2021", "Notes2021Blazo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotesUtil", "Notes2021Blazor\NotesUtil\NotesUtil.csproj", "{3753B8F5-34D0-4242-9E73-9030B95D377C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkupConverter", "Notes2021Blazor\MarkupConverter\MarkupConverter.csproj", "{33D58F61-2D0B-46A9-A7CF-E464C797C96F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notes2021Client", "Notes2021Blazor\Notes2021Client\Notes2021Client.csproj", "{051457DD-CE3E-4E26-8675-D4B55FC40F69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{3753B8F5-34D0-4242-9E73-9030B95D377C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3753B8F5-34D0-4242-9E73-9030B95D377C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3753B8F5-34D0-4242-9E73-9030B95D377C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33D58F61-2D0B-46A9-A7CF-E464C797C96F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33D58F61-2D0B-46A9-A7CF-E464C797C96F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33D58F61-2D0B-46A9-A7CF-E464C797C96F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33D58F61-2D0B-46A9-A7CF-E464C797C96F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{051457DD-CE3E-4E26-8675-D4B55FC40F69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{051457DD-CE3E-4E26-8675-D4B55FC40F69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{051457DD-CE3E-4E26-8675-D4B55FC40F69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{051457DD-CE3E-4E26-8675-D4B55FC40F69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
