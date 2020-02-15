@@ -2,6 +2,9 @@
 @page "/notes/display/{fileId}"
 @page "/notes/enterandshow/{fileId}"
 @page "/notes/sequence/"
+
+@attribute [Authorize]
+
 @using Notes2021Blazor.Shared
 @using Blazored.LocalStorage
 @using Microsoft.AspNetCore.Components.Authorization
@@ -11,6 +14,7 @@
 @using Newtonsoft.Json
 @inject HttpClient Http
 @inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IAuthorizationService AuthorizationService
 @inject ILocalStorageService _localStorage
 @inject NavigationManager NavigationManager
 @inject IModalService Modal
@@ -67,9 +71,9 @@ else
             {
                 if (Model.myAccess.ReadAccess)
                 {
-                <DisplayPanel Model="Model" currentHeader="currentHeader" Id="Id" SeqBases="seqBases"
-                              trackers="trackers" seqIndx="seqIndex" OnClick="ClickHandler"
-                              isSearch="isSearch" SearchResults="results" />
+                    <DisplayPanel Model="Model" currentHeader="currentHeader" Id="Id" SeqBases="seqBases"
+                                  trackers="trackers" seqIndx="seqIndex" OnClick="ClickHandler"
+                                  isSearch="isSearch" SearchResults="results" />
                 }
                 else
                 {
@@ -111,7 +115,7 @@ else
 
     private List<NoteHeader> seqBases { get; set; }
 
-    private int mailOrd {get; set;}
+    private int mailOrd { get; set; }
 
     private bool isIndexSearch { get; set; }
 
@@ -808,7 +812,7 @@ else
         results = new List<NoteHeader>();
         List<NoteHeader> lookin = Model.AllNotes;
 
-        foreach(NoteHeader nh in lookin)
+        foreach (NoteHeader nh in lookin)
         {
             bool isMatch = false;
             switch (target.Option)
@@ -887,9 +891,9 @@ else
 
         results = new List<NoteHeader>();
 
-        foreach( Tags t in tags)
+        foreach (Tags t in tags)
         {
-            foreach( NoteHeader x in results)
+            foreach (NoteHeader x in results)
             {
                 if (x.Id == t.NoteHeaderId)
                     break;
