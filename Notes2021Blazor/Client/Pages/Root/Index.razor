@@ -151,6 +151,7 @@
 
         await _localStorage.SetItemAsync("ArchiveId", 0);
         await _localStorage.RemoveItemAsync("IsSearch");
+        await _localStorage.RemoveItemAsync("ReturnUri");
 
         if (user.Identity.IsAuthenticated)
         {

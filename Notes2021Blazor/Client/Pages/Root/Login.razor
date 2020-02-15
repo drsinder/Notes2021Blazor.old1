@@ -1,6 +1,7 @@
 ﻿@page "/login"
 @using Notes2021Blazor.Shared
 @inject IAuthService AuthService
+@inject ILocalStorageService _localStorage
 @inject NavigationManager NavigationManager
 
 <h1>Login</h1>
@@ -30,10 +31,10 @@
                 <ValidationMessage For="@(() => loginModel.Password)" />
             </div>
             @*<div class="form-group">
-                <label for="rememberme">Remember me</label>
-                <InputCheckbox Id="rememberme" Class="form-control checkbox" @bind-Value="loginModel.RememberMe" />
-            </div>*@
-            <button type="submit" class="btn btn-primary btn-info" >Submit</button>
+                    <label for="rememberme">Remember me</label>
+                    <InputCheckbox Id="rememberme" Class="form-control checkbox" @bind-Value="loginModel.RememberMe" />
+                </div>*@
+            <button type="submit" class="btn btn-primary btn-info">Submit</button>
         </EditForm>
     </div>
 </div>
@@ -52,6 +53,18 @@
 
         if (result.Successful)
         {
+            try
+            {
+                string ReturnUri = await _localStorage.GetItemAsync<string>("ReturnUri");
+                await _localStorage.RemoveItemAsync("ReturnUri");
+                if (!string.IsNullOrEmpty(ReturnUri))
+                {
+                    NavigationManager.NavigateTo(ReturnUri, true);
+                    return;
+                }
+            }
+            catch { }
+
             NavigationManager.NavigateTo(Globals.RootUri);
         }
         else
