@@ -69,7 +69,7 @@ namespace Notes2021Blazor.Shared
         {
             if (true)
             {
-                bool flag1 = await Create(db, "Other", fileId, false, false, false, false, false, false, false);
+                bool flag1 = await Create(db, Globals.AccessOtherId(), fileId, false, false, false, false, false, false, false);
                 if (!flag1)
                     return false;
             }
@@ -120,7 +120,7 @@ namespace Notes2021Blazor.Shared
 
             // If specific user not in list use "Other"
             return await db.NoteAccess
-                .Where(p => p.UserID == "Other" && p.NoteFileId == fileId && p.ArchiveId == arcId).FirstOrDefaultAsync();
+                .Where(p => p.UserID == Globals.AccessOtherId() && p.NoteFileId == fileId && p.ArchiveId == arcId).FirstOrDefaultAsync();
         }
 
         /// <summary>

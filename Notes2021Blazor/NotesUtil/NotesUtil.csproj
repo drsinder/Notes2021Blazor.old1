@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Remove="EditAccess.cs" />
     <Compile Remove="EditAccess.Designer.cs" />
+    <Compile Remove="Globals.cs" />
     <Compile Remove="Importer.cs" />
   </ItemGroup>
 
