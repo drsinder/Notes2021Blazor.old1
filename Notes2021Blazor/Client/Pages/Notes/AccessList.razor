@@ -87,7 +87,16 @@ else
                             <td>
                                 <AccessCheckBox Model="@edaccess" />
                             </td>
-                            <td><AccessDeleteButton noteAccess="@item" OnClick="ClickHandler" /></td>
+                            @if (item.UserID == Globals.AccessOtherId())
+                            {
+                            }
+                            else if (item.UserID == myAccess.UserID)
+                            {
+                            }
+                            else
+                            {
+                                <td><span><AccessDeleteButton noteAccess="@item" OnClick="ClickHandler" /></span></td>
+                            }
                         </tr>
                     }
                 }
